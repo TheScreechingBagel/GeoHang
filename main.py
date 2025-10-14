@@ -1,3 +1,6 @@
+import random
+
+
 # Core Game Functions
 def load_countries(filename):
     """Load countries from file and return as a list"""
@@ -10,7 +13,7 @@ def load_countries(filename):
 
 def choose_random_country(countries_list):
     """Select and return a random country"""
-    pass
+    return countries_list[random.randint(0, len(countries_list))]
 
 
 def display_word(country, guessed_letters):
