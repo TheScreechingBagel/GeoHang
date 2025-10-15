@@ -15,7 +15,7 @@ def load_countries(filename: str) -> list[str]:
 def choose_random_country(countries_list: list[str]) -> str:
     """Select and return a random country"""
     return util.remove_accents(
-        countries_list[random.randint(0, len(countries_list))]
+        countries_list[random.randint(0, len(countries_list) - 1)]
     )  # TODO: make readable:tm:
 
 
