@@ -37,7 +37,10 @@ def get_player_guess(guessed_letters: list[str]) -> str:
 
 def check_guess(letter: str, country: str) -> bool:
     """Check if the guessed letter is in the country name"""
-    pass
+    if letter in country:
+        return True
+    else:
+        return False
 
 
 def update_lives(lives: int, is_correct: bool) -> int:
