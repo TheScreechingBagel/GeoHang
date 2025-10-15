@@ -23,7 +23,16 @@ def display_word(country: str, guessed_letters: list[str]):
 
 def get_player_guess(guessed_letters: list[str]) -> str:
     """Get and validate player's letter guess"""
-    pass
+    while True:
+        given_letter = input()
+        if given_letter.isalpha() and len(given_letter) == 1:
+            if given_letter in guessed_letters:
+                print("you already tried that one, do another")
+            else:
+                break
+        else:
+            print("i don't think that's a letter, try again")
+    return given_letter.lower()
 
 
 def check_guess(letter: str, country: str) -> bool:
@@ -59,7 +68,6 @@ def get_hint(country: str):
 
 
 def main():
-
 
 
 if __name__ == "__main__":
