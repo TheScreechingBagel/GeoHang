@@ -45,7 +45,10 @@ def check_guess(letter: str, country: str) -> bool:
 
 def update_lives(lives: int, is_correct: bool) -> int:
     """Update and return remaining lives"""
-    pass
+    if is_correct:
+        return lives
+    else:
+        return lives - 1
 
 
 def check_win_condition(country: str, guessed_letters: list[str]) -> bool:
@@ -78,6 +81,7 @@ def get_hint(country: str):
 
 
 def main():
+
 
 
 if __name__ == "__main__":
