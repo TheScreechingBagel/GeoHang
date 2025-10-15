@@ -16,9 +16,15 @@ def choose_random_country(countries_list: list[str]) -> str:
     return countries_list[random.randint(0, len(countries_list))]
 
 
-def display_word(country: str, guessed_letters: list[str]):
+def display_word(country: str, guessed_letters: list[str]) -> list[str]:
     """Display the current state of the word with revealed letters"""
-    pass
+    hidden_word: list[str] = []
+    for i in country:
+        if i in guessed_letters:
+            hidden_word.append(i)
+        else:
+            hidden_word.append("_")
+    return hidden_word
 
 
 def get_player_guess(guessed_letters: list[str]) -> str:
@@ -84,7 +90,6 @@ def get_hint(country: str):
 
 
 def main():
-
 
 
 if __name__ == "__main__":
