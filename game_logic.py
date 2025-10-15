@@ -1,4 +1,5 @@
 import random
+import util
 
 
 # Core Game Functions
@@ -13,14 +14,18 @@ def load_countries(filename: str) -> list[str]:
 
 def choose_random_country(countries_list: list[str]) -> str:
     """Select and return a random country"""
-    return countries_list[random.randint(0, len(countries_list))]
+    return util.remove_accents(
+        countries_list[random.randint(0, len(countries_list))]
+    )  # TODO: make readable:tm:
 
 
 def display_word(country: str, guessed_letters: list[str]) -> list[str]:
     """Display the current state of the word with revealed letters"""
     hidden_word: list[str] = []
     for i in country:
-        if i in guessed_letters:
+        if i in guessed_letters or i.lower() in guessed_letters:
+            hidden_word.append(i)
+        elif i in [" ", "'", "-"]:
             hidden_word.append(i)
         else:
             hidden_word.append("_")
@@ -43,7 +48,7 @@ def get_player_guess(guessed_letters: list[str]) -> str:
 
 def check_guess(letter: str, country: str) -> bool:
     """Check if the guessed letter is in the country name"""
-    if letter in country:
+    if letter in country or letter.upper() in country:
         return True
     else:
         return False
@@ -59,9 +64,10 @@ def update_lives(lives: int, is_correct: bool) -> int:
 
 def check_win_condition(country: str, guessed_letters: list[str]) -> bool:
     """Check if player has won the game"""
+    guessed_letters += [" ", "'", "-"]
     win_statement = False
     for i in country:
-        if i in guessed_letters:
+        if i.lower() in guessed_letters:
             win_statement = True
         else:
             win_statement = False
