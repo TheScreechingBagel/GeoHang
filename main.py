@@ -50,7 +50,14 @@ def update_lives(lives: int, is_correct: bool) -> int:
 
 def check_win_condition(country: str, guessed_letters: list[str]) -> bool:
     """Check if player has won the game"""
-    pass
+    win_statement = False
+    for i in country:
+        if i in guessed_letters:
+            win_statement = True
+        else:
+            win_statement = False
+            break
+    return win_statement
 
 
 def check_lose_condition(lives: int) -> bool:
