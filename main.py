@@ -65,7 +65,10 @@ def check_win_condition(country: str, guessed_letters: list[str]) -> bool:
 
 def check_lose_condition(lives: int) -> bool:
     """Check if player has lost the game"""
-    pass
+    if lives == 0:
+        return True
+    else:
+        return False
 
 
 # Logging Functions
