@@ -1,6 +1,5 @@
 import random
 import util
-import gui_logic as gui
 
 
 # Core Game Functions
@@ -20,7 +19,7 @@ def choose_random_country(countries_list: list[str]) -> str:
     )  # TODO: make readable:tm:
 
 
-def display_word(country: str, guessed_letters: list[str]) -> list[str]:
+def display_word(country: str, guessed_letters: str) -> list[str]:
     """Display the current state of the word with revealed letters"""
     hidden_word: list[str] = []
     for i in country:
@@ -33,18 +32,14 @@ def display_word(country: str, guessed_letters: list[str]) -> list[str]:
     return hidden_word
 
 
-def get_player_guess(guessed_letters: list[str]) -> str:
+def get_player_guess(guessed_letters: str, given_letter: str) -> str:
     """Get and validate player's letter guess"""
-    while True:
-        given_letter = gui.key_handler()
-        if given_letter.isalpha() and len(given_letter) == 1:
-            if given_letter in guessed_letters:
-                gui.notice("you already tried that one, do another")
-            else:
-                break
-        else:
-            gui.notice("i don't think that's a letter, try again")
-    return given_letter.lower()
+    if not given_letter.isalpha():
+        raise Exception("i don't think that's a letter, try again")
+    elif given_letter in guessed_letters:
+        raise Exception("you already tried that one, do another")
+    else:
+        return given_letter
 
 
 def check_guess(letter: str, country: str) -> bool:
@@ -63,9 +58,9 @@ def update_lives(lives: int, is_correct: bool) -> int:
         return lives - 1
 
 
-def check_win_condition(country: str, guessed_letters: list[str]) -> bool:
+def check_win_condition(country: str, guessed_letters: str) -> bool:
     """Check if player has won the game"""
-    guessed_letters += [" ", "'", "-"]
+    guessed_letters += " '-"  # [" ", "'", "-"]
     win_statement = False
     for i in country:
         if i.lower() in guessed_letters:
@@ -82,6 +77,19 @@ def check_lose_condition(lives: int) -> bool:
         return True
     else:
         return False
+
+
+# main thingy
+def advance_game(key_pressed: str, lives: int, guessed_letters: str, country: str):
+    guess = get_player_guess(guessed_letters, key_pressed)
+
+    guessed_letters += guess
+    if not check_guess(guess, country):
+        lives = update_lives(lives, False)
+
+    word_state = " ".join(display_word(country, guessed_letters))
+
+    return lives, guessed_letters, word_state
 
 
 # Logging Functions

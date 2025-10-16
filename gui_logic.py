@@ -1,9 +1,2 @@
-import tkinter
-
-
-def key_handler(event: tkinter.Event) -> str:
-    return event.char
-
-
-def notice():
-    pass  # use Message() ?
+# import tkinter as tk
+# from tkinter import ttk
